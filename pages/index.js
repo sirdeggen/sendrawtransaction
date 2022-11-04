@@ -1,6 +1,17 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
+const curlExample = `
+curl --request POST 
+  --url http://json-rpc.vercel.app/api 
+  --header 'Content-Type: application/json' 
+  --data '{
+      "method": "sendrawtransaction",
+      "params": ["somehex raw tx"],
+      "id": "testing"
+  }'
+`
+
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -20,6 +31,12 @@ export default function Home() {
           <code className={styles.code}>bitcoin-cli sendrawtransaction 01000...</code>
           then this is the tool for you.
         </p>
+
+          <p>
+              <code className={styles.code}>
+                  {curlExample}
+              </code>
+          </p>
       </main>
 
       <footer className={styles.footer}>
