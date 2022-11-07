@@ -21,11 +21,12 @@ export default async function handler(req, res) {
     const mapi = new mapiClient({
       token: process.env.MAPI_TOKEN,
       merkleProofsRequired: false,
+      doubleSpendCheck: false,
     })
     const response = await mapi.broadcast(rawtx)
     console.dir(response, { depth: null })
-    if (bodyType === 'plain') return res.status(200).send(JSON.stringify({ id, result: response?.txid }))
-    return res.status(200).json({ id, result: response?.txid })
+    if (bodyType === 'plain') return res.status(200).send(JSON.stringify({ id, result: response?.details?.txid || response?.txid }))
+    return res.status(200).json({ id, result: response?.details?.txid || response?.txid })
   } catch (error) {
     console.log({ error })
     return res.json({ id: req.body?.id, error })
