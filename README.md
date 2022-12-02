@@ -1,5 +1,5 @@
 # sendrawtransaction
-A proxy server for json rpc method to a well known Bitcoin SV node
+A proxy server for json rpc method to a well known Bitcoin SV node.
 
 ### Public Server
 [https://rpc.ö.network](https://rpc.ö.network)
