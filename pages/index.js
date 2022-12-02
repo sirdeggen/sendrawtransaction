@@ -1,16 +1,14 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-const curlExample = `
-curl --request POST 
-  --url http://json-rpc.vercel.app/api 
-  --header 'Content-Type: application/json' 
+const curlExample = `curl --request POST \\
+  --url https://rpc.xn--nda.network/api \\
+  --header 'Content-Type: application/json' \\
   --data '{
       "method": "sendrawtransaction",
       "params": ["somehex raw tx"],
       "id": "testing"
-  }'
-`
+  }'`
 
 export default function Home() {
   return (
@@ -36,10 +34,7 @@ export default function Home() {
         <br />
             you can run it against this proxy instead.
         </p>
-
-          <code className={styles.code}>
-            <pre>{curlExample}</pre>
-          </code>
+          <code className={styles.code}><pre>{curlExample}</pre></code>
       </main>
 
       <footer className={styles.footer}>
