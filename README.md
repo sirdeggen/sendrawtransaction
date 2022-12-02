@@ -17,3 +17,6 @@ curl --request POST \
       "id": "testing"
   }'
   ```
+
+You can use the public service at: [https://rpc.ö.network](https://rpc.ö.network) or you can run your own instance of this server on vercel:
+[Deploy](https://vercel.app)
