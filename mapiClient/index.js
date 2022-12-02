@@ -1,16 +1,5 @@
 import { Ecdsa, Hash, PubKey, Sig, Tx } from 'openspv'
 
-export async function mapiCallback(req, res) {
-    try {
-        req.insertDocumentBulkDefer({ ...req.body }, 'mapiCallbacks')
-        await req.bulkWriteNow()
-        res.status(200).send()
-    } catch (error) {
-        console.log({ error })
-        res.json({ error })
-    }
-}
-
 class mapiClient {
     /**
      * Instantiates a new MAPI client instance.
@@ -63,7 +52,7 @@ class mapiClient {
 
     checkSignature(response) {
         if (response?.message) {
-            // console.log({ checkSignature: response })
+            console.log({ checkSignature: response })
             return false
         }
         const payloadHash = Hash.sha256(Buffer.from(response.payload))
@@ -76,7 +65,7 @@ class mapiClient {
     async policyQuote() {
         try {
             const response = await this.get('/policyQuote')
-            // console.log({ policyQuote: response })
+            console.log({ policyQuote: response })
             return response
         } catch (error) {
             console.log({ error })
@@ -86,7 +75,7 @@ class mapiClient {
     async feeQuote() {
         try {
             const response = await this.get('/feeQuote')
-            // console.log({ feeQuote: response })
+            console.log({ feeQuote: response })
             return response
         } catch (error) {
             console.log({ error })
@@ -98,7 +87,6 @@ class mapiClient {
             const response = await this.get('/tx/' + txid)
             const valid = this.checkSignature(response)
             if (!valid) return { error: 'MAPI signature failed to validate', response }
-            // console.log({ txStatus: response })
             return response
         } catch (error) {
             console.log({ error })
@@ -120,7 +108,6 @@ class mapiClient {
             const valid = this.checkSignature(response)
             if (!valid) return { error: 'MAPI signature failed to validate', response }
             // handle mapi errors and translate them so that we know what to do internally.
-            // console.log({ broadcast: response })
             if (response?.details?.returnResult !== 'success') return { error: 'Broadcast Failed', response }
             return response
         } catch (error) {
@@ -139,7 +126,6 @@ class mapiClient {
             )
             const valid = this.checkSignature(response)
             if (!valid) return { error: 'MAPI signature failed to validate', response }
-            // console.log({ broadcastMany: response })
             return response
         } catch (error) {
             console.log({ error })
